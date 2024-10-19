@@ -44,6 +44,9 @@ void testProduits();
 void testCommandes();
 void testInventaire();
 void testFournisseur();
+void testEntrepot();
+void testBonCommande();
+void testReception();
 
 int main()
 {
@@ -51,7 +54,11 @@ int main()
 	//testProduits();
 	//testCommandes();
 	//testInventaire();
-	testFournisseur();
+	//testFournisseur();
+	//testEntrepot();
+	//testBonCommande();
+	testReception();
+	
 	//commerce();
 	afficherInformation();
 	return 0;
@@ -213,6 +220,76 @@ void testFournisseur()
 		composants5.pop_front();
 		delete composant;
 	}
+}
+
+void testEntrepot()
+{
+	Entrepot entrepot;
+	entrepot.ajouterComposant(new Composant1(100, 80), 0);
+	entrepot.ajouterComposant(new Composant2(99, 81), 1);
+	list<Composant*> maListeComposants4;
+	maListeComposants4.push_back(new Composant4(99));
+	maListeComposants4.push_back(new Composant4(98));
+	maListeComposants4.push_back(new Composant4(97));
+	maListeComposants4.push_back(new Composant5(3, 90, 30));
+	entrepot.ajouterComposants(maListeComposants4, 3);
+	Entrepot entrepotCC(entrepot);
+	entrepotCC.ajouterComposant(new Composant3(1000), 2);
+	for (int id = 0; id < 5; id++)
+		while (entrepotCC.getQuantiteComposants(id) > 0)
+		{
+			Composant* monComposant = entrepotCC.recupererComposant(id);
+			cout << "mon composant " << monComposant->getNom() << endl;
+			delete monComposant;
+		}
+}
+
+void testBonCommande()
+{
+	int quantites[] = { 1,2,3,4,5 };
+	Commande* maCommande = new Commande(1000, quantites);
+	BonCommande* bonCommande = new BonCommande(128, maCommande);
+	bonCommande->ajouterProduits(5, 0);
+	bonCommande->ajouterProduits(4, 1);
+	bonCommande->ajouterProduits(3, 2);
+	bonCommande->ajouterProduits(2, 3);
+	bonCommande->ajouterProduits(1, 4);
+	cout << *bonCommande << endl;
+	BonCommande bonCommandeCC(*bonCommande);
+	cout << bonCommandeCC << endl;
+	delete bonCommande;
+	delete maCommande;
+}
+
+void testReception()
+{
+	int quantites[] = { 1,2,3,4,5 };
+	Commande* maCommande = new Commande(1000, quantites);
+	BonCommande* bonCommande = new BonCommande(128, maCommande);
+	bonCommande->ajouterProduits(5, 0);
+	bonCommande->ajouterProduits(4, 1);
+	bonCommande->ajouterProduits(3, 2);
+	bonCommande->ajouterProduits(2, 3);
+	bonCommande->ajouterProduits(1, 4);
+	Reception reception(bonCommande);
+	reception.ajouterProduit(new ProduitA(), 0);
+	reception.ajouterProduit(new ProduitA(), 0);
+	reception.ajouterProduit(new ProduitA(), 0);
+	reception.ajouterProduit(new ProduitA(), 0);
+	reception.ajouterProduit(new ProduitB(), 1);
+	reception.ajouterProduit(new ProduitB(), 1);
+	reception.ajouterProduit(new ProduitB(), 1);
+	reception.ajouterProduit(new ProduitC(), 2);
+	reception.ajouterProduit(new ProduitC(), 2);
+	reception.ajouterProduit(new ProduitD(), 3);
+	reception.ajouterProduit(new ProduitD(), 3);
+	reception.ajouterProduit(new ProduitE(), 4);
+	cout << reception << endl;
+	for (Produit* produit : reception.getProduits(3))
+		cout << *produit << endl;
+	for (int id = 0; id < 5; id++)
+		cout << "Quantite recue {" << id << "} --> " << reception.getQuantiteProduitsRecus(id) << endl;
+	delete maCommande;
 }
 
 void commerce()
