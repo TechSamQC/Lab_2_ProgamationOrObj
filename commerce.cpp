@@ -1,8 +1,8 @@
 //Partie en-tête
-//Nom : Samuel Brassard
+//Nom : Samuel Brassard, Almamy Sylla, Babacar diasse
 //Programme : Labo 2 - Commerce
 //Date de création : 03/10/2024
-//Date de dernière modification : 22/10/2024
+//Date de dernière modification : 24/10/2024
 
 //Clauses d'inclusion
 #include <iostream>
@@ -76,6 +76,7 @@ void afficherInformation()
 		<< " NB constructeurs       : " << Compteur::getNbConstructeurs() << endl
 		<< " NB constructeurs copie : " << Compteur::getNbConstructeursCopie() << endl
 		<< " NB destructeurs        : " << Compteur::getNbDestructeurs() << endl;
+	cout << "Samuel Brassard, Almamy Sylla, Babacar diasse" << endl;
 	cin.get();
 }
 
